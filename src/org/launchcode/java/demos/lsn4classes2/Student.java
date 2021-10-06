@@ -30,17 +30,55 @@ public class Student {
 
 
      //TODO: Uncomment and complete the getGradeLevel method here:
-//    public String getGradeLevel() {
-//        // Determine the grade level of the student based on numberOfCredits
-//    }
+    public static String getGradeLevel(int numberOfCredits) {
+         //Determine the grade level of the student based on numberOfCredits
+        if (numberOfCredits >= 90) {
+            return "senior";
+        }
+        else if (numberOfCredits >= 60) {
+            return "junior";
+        }
+        else if (numberOfCredits >= 30) {
+            return "sophomore";
+        }
+        else {
+            return "frosh";
+        }
+    }
 
     // TODO: Complete the addGrade method.
     public void addGrade(int courseCredits, double grade) {
         // Update the appropriate fields: numberOfCredits, gpa
+       double totalQualityScore = this.gpa * this.numberOfCredits;
+       totalQualityScore += grade * courseCredits;
+       this.numberOfCredits += courseCredits;
+       this.gpa = totalQualityScore/this.numberOfCredits;
     }
 
     // TODO: Add your custom 'toString' method here. Make sure it returns a well-formatted String rather
     //  than just the class fields.
+
+    public String toString() {
+        String studentReport = String.format("%s is a %s with %d credits and a GPA of %.2f", this.name, this.getGradeLevel(this.numberOfCredits), this.getNumberOfCredits(), this.getGpa());
+        return studentReport;
+    }
+
+    public boolean equals (Object toBeCompared) {
+        if (toBeCompared == this) {
+            return true;
+        }
+
+        if (toBeCompared == null) {
+            return false;
+        }
+
+        if (toBeCompared.getClass() != getClass()) {
+            return false;
+        }
+
+        Student theStudent = (Student) toBeCompared;
+        return theStudent.getStudentId() == getStudentId();
+    }
 
     // TODO: Add your custom 'equals' method here. Consider which fields should match in order to call two
     //  Student objects equal.
